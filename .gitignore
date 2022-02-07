@@ -190,3 +190,4 @@ pip-selfcheck.json
 
 # custom
 cloud_storage_credentials.json
+bigquery_credentials.json
