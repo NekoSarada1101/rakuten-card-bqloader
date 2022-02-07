@@ -1,13 +1,4 @@
 steps:
-  - name: gcr.io/cloud-builders/gcloud
-    args:
-      - kms
-      - decrypt
-      - "--ciphertext-file=cloud_storage_credentials.json.enc"
-      - "--plaintext-file=cloud_storage_credentials.json"
-      - "--location=global"
-      - "--keyring=my-keyring"
-      - "--key=rakuten-card-bqloader"
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     args:
       - gcloud
