@@ -35,5 +35,5 @@ def bqloader(event, context):
     df = pd.read_csv('/tmp/' + event['name'], header=0)
     df.drop(columns=['利用者', '新規サイン'], inplace=True)
 
-    table = bq_client.get_table('rakuten_card_detail')
+    table = bq_client.get_table('slackbot-288310.my_dataset.rakuten_card_detail')
     bq_client.insert_rows_from_dataframe(table, df)
