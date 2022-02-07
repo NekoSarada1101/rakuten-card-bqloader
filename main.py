@@ -44,5 +44,9 @@ def bqloader(event, context):
     df.rename(columns={'利用日': 'use_date', '利用店名・商品名': 'use_store_name_products_name', '支払方法': 'payment_methods', '利用金額': 'use_amount',
               '支払手数料': 'payment_charge', '支払総額': 'pay_total_amount', '{}月支払金額'.format(str(month)): 'pay_amount', '{}月繰越残高'.format(str(next_month)): 'brought_forward_balance'}, inplace=True)
 
+    # 日付をyyyy-mm-ddに変更
+    df['use_date'] = df['use_date'].str.replace('/', '-')
+    print(df)
+
     table = bq_client.get_table('slackbot-288310.my_dataset.rakuten_card_detail')
     bq_client.insert_rows_from_dataframe(table, df)
