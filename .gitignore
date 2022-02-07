@@ -188,4 +188,5 @@ pyvenv.cfg
 .venv
 pip-selfcheck.json
 
-
+# custom
+cloud_storage_credentials.json
