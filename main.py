@@ -49,4 +49,5 @@ def bqloader(event, context):
     print(df)
 
     table = bq_client.get_table('slackbot-288310.my_dataset.rakuten_card_detail')
-    bq_client.insert_rows_from_dataframe(table, df)
+    result = bq_client.insert_rows_from_dataframe(table, df)
+    print(result)
