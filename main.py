@@ -28,10 +28,12 @@ def bqloader(event, context):
     print('Created: {}'.format(event['timeCreated']))
     print('Updated: {}'.format(event['updated']))
 
+    # GCSに配置されたファイルをダウンロード
     bucket = gcs_client.get_bucket(event['bucket'])
     blob = bucket.blob(event['name'])
     blob.download_to_filename('/tmp/' + event['name'])
 
+    # 不要な列を削除
     df = pd.read_csv('/tmp/' + event['name'], header=0)
     df.drop(columns=['利用者', '新規サイン'], inplace=True)
 
@@ -48,6 +50,7 @@ def bqloader(event, context):
     df['use_date'] = df['use_date'].str.replace('/', '-')
     print(df)
 
+    # BQにインサート
     table = bq_client.get_table('slackbot-288310.my_dataset.rakuten_card_detail')
     result = bq_client.insert_rows_from_dataframe(table, df)
     print(result)
