@@ -1,5 +1,5 @@
 import json
-from datetime import datetime, timedelta, timezone
+import pandas as pd
 from google.cloud import storage
 from google.oauth2 import service_account
 
@@ -24,3 +24,6 @@ def bqloader(event, context):
     bucket = client.get_bucket(event['bucket'])
     blob = bucket.blob(event['name'])
     blob.download_to_filename('/tmp/' + event['name'])
+
+    df = pd.read_csv('/tmp/' + event['name'], header=0)
+    df.drop(columns=['利用者', '新規サイン'], inplace=True)
