@@ -48,6 +48,9 @@ def bqloader(event, context):
 
     # 日付をyyyy-mm-ddに変更
     df['use_date'] = df['use_date'].str.replace('/', '-')
+
+    # NaNを含む行を削除する
+    df = df.dropna(how='any')
     print(df)
 
     # BQにインサート
